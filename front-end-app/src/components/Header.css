@@ -1,0 +1,24 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.header{
+    height: 76px;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.header-logo-wrapper{
+    width: 76px;
+    height: 76px;
+    background: url('../../public/header-logo.png') no-repeat cover;
+}
+
+.header i{
+    float: right;
+}

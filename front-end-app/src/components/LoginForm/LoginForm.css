@@ -4,12 +4,12 @@
     --sub-color: #e4dccf;
     --decor-color:#ea5455;
 }
-body {
+/* body {
     background: url('/public/background.png') no-repeat;
     background-size: cover;
     background-position: center;
 
-}
+} */
 .wrapper{
     width: 420px;
     background-color: transparent;
