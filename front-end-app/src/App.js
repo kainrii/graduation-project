@@ -7,7 +7,7 @@ import TalentJob from "./pages/talent/TalentJob";
 function App() {
   return (
     <div className="App">
-      <TalentJob></TalentJob>
+      <LoginForm/>
     </div>
   );
 }
