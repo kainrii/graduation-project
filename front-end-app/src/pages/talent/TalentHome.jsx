@@ -1,9 +1,11 @@
 import React from 'react'
+import Header from '../../components/Header'
 
+const _pages = [ 'Jobs', 'Profile','Interview rehearsal'];
 function TalentHome() {
   return (
     <div>
-      Talent Home
+      <Header pages={_pages}/>   
     </div>
   )
 }

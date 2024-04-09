@@ -1,12 +1,11 @@
 :root{
-    --text-color:#002b5b;
-    --main-color:#f9f5eb;
-    --sub-color: #e4dccf;
-    --decor-color:#ea5455;
-}
-
+    --dark-navy:#112D4E;
+    --light-grey:#F9F7F7;
+    --light-grayish-blue: #DBE2EF;
+    --dark-moderate-blue:#3F72AF;
+  }
 *{margin: 0; padding: 0; box-sizing: border-box;}
 
 body{
-    width: 100vh;
+
 }
