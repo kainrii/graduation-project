@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace backend_app.Models
+namespace BackendApp.Models
 {
     public class Talent
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public int IsActive { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
 
-
+        public string TalentId { get; set; }
+        public string TalentName { get; set; } = string.Empty;  
+        public string TalentEmail { get; set; } = string.Empty;
+        public string TalentPhone { get; set; } = string.Empty;
+        public string TalentUsername { get; set; } = string.Empty;
+        public string TalentPassword { set; get; } = string.Empty;
+        public int TalentStatus{ get; set; }
+    
     }
 }
