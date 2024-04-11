@@ -2,22 +2,9 @@ import { TextField, MenuItem } from '@mui/material'
 import React from 'react'
 const currencies = [
     {
-      value: 'USD',
-      label: '$',
-    },
-    {
-      value: 'EUR',
-      label: '€',
-    },
-    {
-      value: 'BTC',
-      label: '฿',
-    },
-    {
-      value: 'JPY',
-      label: '¥',
-    },
-  ];
+      value: 'All',
+      label: 'All',
+    }  ];
 const Filter = () => {
   return (
     

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Grid, Button, Divider } from '@mui/material';
 import Header from '../../components/Header';
 import JobCard from '../../components/Card/JobCard';
@@ -10,6 +11,28 @@ import Stack from '@mui/material/Stack';
 const pages = ['Jobs', 'Profile', 'Interview rehearsal'];
 
 const TalentJob = () => {
+  const [jobs, setJobs] = useState([]); // State to store the jobs
+  const [isLoading, setIsLoading] = useState(true); // State to handle the loading state
+  const [error, setError] = useState(null); // State to handle any error
+
+   // Function to fetch all jobs using axios
+   const fetchJobs = async () => {
+    const url = "https://localhost:7049/api/Job";
+    try {
+      const response = await axios.get(url);
+      setJobs(response.data); // Assuming the API returns an array of jobs
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.response ? error.response.data.message : error.message);
+      setIsLoading(false);
+    }
+  };
+
+  // useEffect to call fetchJobs when the component mounts
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
       <Header pages={pages}/>
@@ -38,14 +61,18 @@ const TalentJob = () => {
           <Divider style={{ width: '100%', margin: '20px 0' }} />
         </Grid>
 
-       {/* Dynamic Job Cards Grid */}
-       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {Array.from(Array(9)).map((_, index) => (
+      {/* Dynamic Job Cards Grid */}
+      {isLoading ? (<p>Loading jobs...</p>) 
+      : error ? (<p>Error fetching jobs: {error}</p>) 
+      : (
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          {jobs.map((job, index) => (
             <Grid item xs={4} sm={4} md={4} key={index}>
-              <JobCard />
+              <JobCard job={job} /> {/* Pass job data as a prop to the JobCard */}
             </Grid>
           ))}
         </Grid>
+      )}
 
       {/* Pagination*/}
       <Grid item xs={12} justifyItems={'right'}>

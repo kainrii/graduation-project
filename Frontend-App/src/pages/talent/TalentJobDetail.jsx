@@ -13,9 +13,12 @@ const TalentJobDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to fetch job using axios
+  // // Function to fetch job using axios
   const fetchJob = async () => {
-    const url = "https://localhost:7049/api/Job/66162804a238a213adc748cb?companyId=660ef3d3ce43a3db8a91421f";
+    const _jobId = new URLSearchParams(window.location.search).get('id');
+    const _companyId = new URLSearchParams(window.location.search).get('companyId');
+    const url = `https://localhost:7049/api/Job/${_jobId}?companyId=${_companyId}`
+
 
     try {
       const response = await axios.get(url);
@@ -27,8 +30,9 @@ const TalentJobDetail = () => {
     }
   };
   const fetchCompany = async () => {
-    const companyUrl = "https://localhost:7049/api/Company/660ef3d3ce43a3db8a91421f";
     try {
+      const _companyId = new URLSearchParams(window.location.search).get('companyId');
+      const companyUrl = `https://localhost:7049/api/Company/${_companyId}`;
       const response = await axios.get(companyUrl);
       setCompany(response.data);
     } catch (error) {
