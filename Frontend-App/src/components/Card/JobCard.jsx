@@ -13,6 +13,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BusinessIcon from '@mui/icons-material/Business';
 import Typography from '@mui/material/Typography';
 
+const id = '66162804a238a213adc748cb';
+
 export default function JobCard() {
   const navigate = useNavigate(); // Hook for navigation
   const [isFavorited, setIsFavorited] = React.useState(false);
@@ -24,7 +26,7 @@ export default function JobCard() {
 
   const handleCardClick = () => {
     // Open a new tab to the job detail page
-    window.open('/job-detail', '_blank');
+    window.open(`/job-detail?id=${id}`, '_blank');
   };
 
   const salary = "$120,000/year";
