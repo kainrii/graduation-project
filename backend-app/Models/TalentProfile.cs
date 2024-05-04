@@ -6,6 +6,7 @@ namespace BackendApp.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        public string ProfileId { get; set; }
         public string TalentId { get; set; }
 
 

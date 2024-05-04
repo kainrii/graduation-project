@@ -26,11 +26,24 @@ namespace BackendApp.Controllers.CompanyControllers
             return Ok(jobs);
         }
 
+
         // GET api/<JobController>/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string companyId, string jobId)
+        public async Task<IActionResult> Get(string id)
         {
-            var job = await _jobServices.GetByID(companyId, jobId);
+            var job = await _jobServices.GetByID(id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+            return Ok(job);
+        }
+
+        // GET api/<JobController>/5
+        [HttpGet("by-company/{companyId}")]
+        public async Task<IActionResult> GetByCompanyID(string companyId)
+        {
+            var job = await _jobServices.GetByCompanyID(companyId);
             if (job == null)
             {
                 return NotFound();
@@ -48,28 +61,28 @@ namespace BackendApp.Controllers.CompanyControllers
 
         // PUT api/<JobController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string companyId, string jobId, [FromBody] Job newJob)
+        public async Task<IActionResult> Put(string id, [FromBody] Job newJob)
         {
-            var company = await _jobServices.GetByID(companyId, jobId);
+            var company = await _jobServices.GetByID(id);
             if (company == null)
             {
                 return NotFound();
             }
-            await _jobServices.UpdateAsync(companyId, jobId, newJob);
+            await _jobServices.UpdateAsync(id, newJob);
 
             return Ok("updated Successfully");
         }
 
         // DELETE api/<JobController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string companyId, string jobId)
+        public async Task<IActionResult> Delete(string id)
         {
-            var company = await _jobServices.GetByID(companyId, jobId);
+            var company = await _jobServices.GetByID(id);
             if (company == null)
             {
                 return NotFound();
             }
-            await _jobServices.DeleteAsync(companyId, jobId);
+            await _jobServices.DeleteAsync(id);
             return Ok("deleted successfully");
         }
     }

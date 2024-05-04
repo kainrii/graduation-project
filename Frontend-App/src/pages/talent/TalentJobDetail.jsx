@@ -10,6 +10,7 @@ const TalentJobDetail = () => {
   const [job, setJob] = useState(null);
   const [company, setCompany] = useState(null);
   const [applied, setApplied] = useState(false); 
+  const [saved, setSaved] = useState(false); 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -45,6 +46,11 @@ const TalentJobDetail = () => {
     // You may want to implement the application logic here
     setApplied(true); // Update the applied state to true
   };
+  const handleSaveClick = () => {
+    // You may want to implement the application logic here
+    setSaved(true); // Update the applied state to true
+    if(saved===true) setSaved(false);
+  };
 
   // useEffect to call fetchJob when the component mounts
   useEffect(() => {
@@ -78,7 +84,7 @@ const TalentJobDetail = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <div>
                   <Typography variant="h5" component="h1" gutterBottom>
-                    Python Developer
+                    {job.jobName}
                   </Typography>
                   <Typography variant="subtitle1" color="text.secondary">
                     {company.companyName} · {job.details.workplaceLocation}
@@ -100,7 +106,15 @@ const TalentJobDetail = () => {
                 >
                   {applied ? 'Applied' : 'Apply'}
                 </Button>
-                <Button variant="outlined" size="large">Save</Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  sx={{ backgroundColor: saved ? 'green' : 'white',color: saved ? 'white' : 'primary.main' ,'&:hover': { backgroundColor: saved ? 'darkgreen' : 'var(--lightgrey)' } }}
+                  onClick={handleSaveClick}
+                  // disabled={applied} // 
+                >
+                  {saved ? 'Saved' : 'Save'}
+                </Button>
               </Stack>
             </Grid>
             <Grid item xs={12}>

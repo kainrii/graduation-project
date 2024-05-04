@@ -12,6 +12,7 @@ namespace BackendApp.Models
         public string CompanyName { get; set;}  
         public string CompanyDescription { get; set;}
         public string CompanyEmail { get; set;} = string.Empty;    
+        public string CompanyPassword { get; set;}
         public string CompanyPhoneNumber { get; set;} = string.Empty;   
         public int CompanyStatus { get; set;}
 

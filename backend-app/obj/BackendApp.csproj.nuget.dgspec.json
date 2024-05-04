@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Do-an\\gproject\\BackendApp\\BackendApp.csproj": {}
+    "D:\\Do-an\\gproject\\Backend-App\\BackendApp.csproj": {}
   },
   "projects": {
-    "D:\\Do-an\\gproject\\BackendApp\\BackendApp.csproj": {
+    "D:\\Do-an\\gproject\\Backend-App\\BackendApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Do-an\\gproject\\BackendApp\\BackendApp.csproj",
+        "projectUniqueName": "D:\\Do-an\\gproject\\Backend-App\\BackendApp.csproj",
         "projectName": "BackendApp",
-        "projectPath": "D:\\Do-an\\gproject\\BackendApp\\BackendApp.csproj",
+        "projectPath": "D:\\Do-an\\gproject\\Backend-App\\BackendApp.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\Do-an\\gproject\\BackendApp\\obj\\",
+        "outputPath": "D:\\Do-an\\gproject\\Backend-App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,6 +45,18 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AspNetCore.Identity.MongoDbCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.18, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.14, )"

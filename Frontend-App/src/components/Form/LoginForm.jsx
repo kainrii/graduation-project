@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
+
 function authenticate(email, password, callback) {
   setTimeout(() => {
     if (email === "user@example.com" && password === "password123") {
@@ -23,6 +25,7 @@ function authenticate(email, password, callback) {
     }
   }, 1000); 
 }
+
 
 function Copyright(props) {
   return (
@@ -59,8 +62,9 @@ export default function LogIn() {
     const password = data.get('password');
 
     authenticate(email, password, (isAuthenticated) => {
+      const _companyId = "661e2d245d29a10452672911";
       if (isAuthenticated) {
-        navigate('/talent-job'); 
+        navigate(`job management?id=${_companyId}`); 
       } else {
         alert('Authentication Failed'); 
       }
@@ -119,7 +123,7 @@ export default function LogIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 ,backgroundColor:"var(--dark-moderate-blue)", color: "var(--light-grey)"}}
             >
-              Sign In
+              Log In
             </Button>
             <Grid container>
               <Grid item xs>
