@@ -13,18 +13,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 
 
-function authenticate(email, password, callback) {
-  setTimeout(() => {
-    if (email === "user@example.com" && password === "password123") {
-      callback(true);
-    } else {
-      callback(false);
-    }
-  }, 1000); 
-}
+// function authenticate(email, password, callback) {
+//   setTimeout(() => {
+//     if (email === "user@example.com" && password === "password123") {
+//       callback(true);
+//     } else {
+//       callback(false);
+//     }
+//   }, 1000); 
+// }
 
 
 function Copyright(props) {
@@ -45,30 +46,26 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function LogIn() {
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get('email');
+    const username = data.get('email'); // Ensure 'name' attributes in your TextField components match FormData keys
     const password = data.get('password');
-
-    authenticate(email, password, (isAuthenticated) => {
+    const role = 'agent';
+    
+    try {
+      const response = await axios.post('https://localhost:7049/api/Users/login', { username, password });
+      localStorage.setItem('token', response.data.token);
+      console.log('Logged in!');
+      // Assuming you have a company ID to navigate after successful login
       const _companyId = "661e2d245d29a10452672911";
-      if (isAuthenticated) {
-        navigate(`job management?id=${_companyId}`); 
-      } else {
-        alert('Authentication Failed'); 
-      }
-    });
+      navigate(`job-management?id=${_companyId}`);
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('Login failed. Please check your credentials.'); // More user-friendly error handling
+    }
   };
 
   return (

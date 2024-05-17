@@ -12,8 +12,6 @@ namespace BackendApp.Models
         public string TalentName { get; set; } = string.Empty;  
         public string TalentEmail { get; set; } = string.Empty;
         public string TalentPhone { get; set; } = string.Empty;
-        public string TalentUsername { get; set; } = string.Empty;
-        public string TalentPassword { set; get; } = string.Empty;
         public int TalentStatus{ get; set; }
     
     }

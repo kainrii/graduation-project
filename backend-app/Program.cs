@@ -1,7 +1,9 @@
+using BackendApp.Contexts;
 using BackendApp.Models;
 using BackendApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +15,31 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("MyDB"));
+
 //resolving the web services
 builder.Services.AddTransient<ICompanyServices,CompanyServices>();
 builder.Services.AddTransient<ITalentServices, TalentServices>();
 builder.Services.AddTransient<IJobServices, JobServices>();
+
+builder.Services.AddSingleton<DatabaseContext>();
+builder.Services.AddTransient<ILoginServices, LoginServices>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:Key"])),
+            ValidateIssuer = true,
+            ValidateAudience = true
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 // Add CORS policy
 builder.Services.AddCors(options =>
 {

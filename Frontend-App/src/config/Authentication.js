@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:7049'; 
+const API_URL = 'http://127.0.0.1:7049'; 
 
 const AuthorService = {
   // Lấy danh sách tất cả các tác giả từ backend

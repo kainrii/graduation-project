@@ -5,7 +5,7 @@ namespace BackendApp.Services
     {
         Task<User> AuthenticateUser(string username, string password);
         Task<User> CreateUser(User newUser);
-        Task<IEnumerable<User>> GetAllUsers();
+        Task<string> GenerateJwtToken(User user);
 
     }
 }
