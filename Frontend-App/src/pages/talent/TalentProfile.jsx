@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../../components/Header'
+import { useState } from 'react';
 import { Grid, Avatar} from '@mui/material';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -11,52 +12,47 @@ import VerticalTabs from '../../components/navigation/TabPanel';
 
 // import hehe from '../../../public/hehe';
 const _pages = [ 'Jobs', 'Profile','Interview rehearsal'];
-
+const _tabs = [
+  { label: "Personnal Details", content: "/personaldetails" },
+  { label: "Background", content: "/background" },
+  { label: "IT Skills", content: "/itskills" },
+  { label: "Preferences", content: "/preferences" },
+];
 const TalentProfile = () => {
+  const [avatarUrl, setAvatarUrl] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatarUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
   return (
     <div>
       <Header pages={_pages}/>
-      <Grid container spacing={4}>
-        <Grid item xs ={1} style={{ padding:"36px 0px", marginTop:"40px"}}/>
-        <Grid item xs ={3} 
-          style={{
-            padding:"36px 0px", 
-            marginTop:"40px", 
-            display: "flex",
-            justifyContent:"center"
-            }}
-        >
-          <Grid container spacing={1}         >
-            <Grid item xs ={12}               
-                style={{
-                display: "flex",
-                justifyContent:"center"
-              }}>
-              <Avatar
-                // alt="Avatar"
-                src="../../../public/logo192.png"
-                sx={{ width: 128, height: 128 }}
-              />
-            </Grid> 
-            <Grid item xs ={12}>
-              <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                aria-label="Vertical tabs example"
-                sx={{ borderRight: 1, borderColor: 'divider', marginTop:"40px"}}
-              >
-                <Tab label="Personal details" sx={{backgroundColor: "#cccccc",margin:"8px 16px"}} />
-                <Tab label="Background" sx={{backgroundColor: "#cccccc",margin:"8px 16px"}} />
-                <Tab label="IT Skills" sx={{backgroundColor: "#cccccc",margin:"8px 16px"}} />
-                <Tab label="Preferences" sx={{backgroundColor: "#cccccc",margin:"8px 16px"}}/>
-              </Tabs>         
-            </Grid> 
-          </Grid>
-       </Grid>
-        <Grid item xs ={7} style={{paddingTop:"36px",marginTop:"40px" }} >
-          
+
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+        <label htmlFor="avatar-input">
+            <Avatar
+              alt="Avatar"
+              src={avatarUrl}
+              sx={{ width: 170, height: 170, margin: "32px 64px" }}
+            />
+          </label>
+          <input
+            id="avatar-input"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
         </Grid>
-        <Grid item xs ={1} style={{ paddingTop:"36px", marginTop:"40px"}}/>
+        <Grid item xs={12} sx={{margin:"0px 40px"}}>
+          <VerticalTabs tabs={_tabs}/>
+        </Grid>
       </Grid>
     </div>
   )
