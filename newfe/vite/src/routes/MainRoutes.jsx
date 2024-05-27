@@ -14,6 +14,10 @@ const Companies = Loadable(lazy(()=> import('views/companies')));
 //profile routing
 
 const Profile = Loadable(lazy(() => import('views/profile')));
+const PersonalDetails = Loadable(lazy(() => import('views/profile/personaldetails')));
+const Background = Loadable(lazy(() => import('views/profile/background')));
+const ITSkills = Loadable(lazy(() => import('views/profile/itskills')));
+const Preferences = Loadable(lazy(() => import('views/profile/preferences')));
 
 
 // dashboard routing
@@ -46,9 +50,24 @@ const MainRoutes = {
         {
           path:'profile-id',
           element: <Profile/>
+        },
+        {
+          path:'personaldetails',
+          element: <PersonalDetails/>
+        },
+        {
+          path:'background',
+          element: <Background/>
+        },
+        {
+          path:'itskills',
+          element: <ITSkills/>
+        },
+        {
+          path:'preferences',
+          element: <Preferences/>
         }
       ]
-
     },
 
     {

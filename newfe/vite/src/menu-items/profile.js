@@ -15,7 +15,7 @@ const profile = {
       id: 'default',
       title: 'Profile',
       type: 'item',
-      url: '/profile/default',
+      url: '/profile/profile-id',
       icon: icons.IconDashboard,
       breadcrumbs: false
     }
