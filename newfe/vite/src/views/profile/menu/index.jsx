@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 // project imports
 import MenuGroup from './MenuGroup';
 import profileMenuItem from './menu-items';
+import MenuItem from './MenuItem';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
