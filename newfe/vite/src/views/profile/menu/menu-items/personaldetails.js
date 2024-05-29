@@ -14,7 +14,7 @@ const personaldetails = {
       id: 'profile-personaldetails',
       title: 'Personal Details',
       type: 'item',
-      url: 'personaldetails',
+      url: '/profile/profile-id/personaldetails',
       icon: icons.IconBrandChrome,
       breadcrumbs: false
     }

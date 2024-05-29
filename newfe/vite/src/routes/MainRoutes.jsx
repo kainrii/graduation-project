@@ -14,24 +14,12 @@ const Companies = Loadable(lazy(()=> import('views/companies')));
 //profile routing
 
 const Profile = Loadable(lazy(() => import('views/profile')));
-const PersonalDetails = Loadable(lazy(() => import('views/profile/personaldetails')));
-const Background = Loadable(lazy(() => import('views/profile/background')));
-const ITSkills = Loadable(lazy(() => import('views/profile/itskills')));
-const Preferences = Loadable(lazy(() => import('views/profile/preferences')));
+const PersonalDetails = Loadable(lazy(() => import('views/profile')));
+const Background = Loadable(lazy(() => import('views/profile')));
+const ITSkills = Loadable(lazy(() => import('views/profile')));
+const Preferences = Loadable(lazy(() => import('views/profile')));
 
 
-// dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard')));
-
-// utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
-const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-// const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
-// const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-
-// sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -41,7 +29,7 @@ const MainRoutes = {
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element:<Jobs/>
     },
 
     {
@@ -49,24 +37,27 @@ const MainRoutes = {
       children:[
         {
           path:'profile-id',
-          element: <Profile/>
-        },
-        {
-          path:'personaldetails',
-          element: <PersonalDetails/>
-        },
-        {
-          path:'background',
-          element: <Background/>
-        },
-        {
-          path:'itskills',
-          element: <ITSkills/>
-        },
-        {
-          path:'preferences',
-          element: <Preferences/>
+          element: <Profile/>,
+          children: [
+            {
+              path:'personaldetails',
+              element: <PersonalDetails/>
+            },
+            {
+              path:'background',
+              element: <Background/>
+            },
+            {
+              path:'itskills',
+              element: <ITSkills/>
+            },
+            {
+              path:'preferences',
+              element: <Preferences/>
+            }
+          ]
         }
+
       ]
     },
 

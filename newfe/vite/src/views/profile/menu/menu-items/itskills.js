@@ -14,7 +14,7 @@ const itskills = {
       id: 'profile-itskills',
       title: 'IT skills',
       type: 'item',
-      url: 'itskills',
+      url: '/profile/profile-id/itskills',
       icon: icons.IconBrandChrome,
       breadcrumbs: false
     }

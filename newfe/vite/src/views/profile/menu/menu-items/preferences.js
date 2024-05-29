@@ -12,9 +12,9 @@ const preferences = {
   children: [
     {
       id: 'profile-preferences',
-      title: 'Interview',
+      title: 'Preferences',
       type: 'item',
-      url: 'preferences',
+      url: '/profile/profile-id/preferences',
       icon: icons.IconBrandChrome,
       breadcrumbs: false
     }

@@ -14,7 +14,7 @@ const background = {
       id: 'profile-background',
       title: 'Background',
       type: 'item',
-      url: 'background',
+      url: '/profile/profile-id/background',
       icon: icons.IconBrandChrome,
       breadcrumbs: false
     }
