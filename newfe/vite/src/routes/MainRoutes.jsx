@@ -40,7 +40,7 @@ const MainRoutes = {
           element: <Profile/>,
           children: [
             {
-              path:'personaldetails',
+              path:'profile-personaldetails',
               element: <PersonalDetails/>
             },
             {

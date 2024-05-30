@@ -7,7 +7,7 @@ const icons = { IconBrandChrome, IconHelp };
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
 const preferences = {
-  id: 'preferences',
+  id: 'profile-preferences',
   type: 'group',
   children: [
     {

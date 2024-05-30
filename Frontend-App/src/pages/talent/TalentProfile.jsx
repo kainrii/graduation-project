@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Header from '../../components/Header'
 import { useState } from 'react';
 import { Grid, Avatar} from '@mui/material';
@@ -10,14 +10,16 @@ import Box from '@mui/material/Box';
 import VerticalTabs from '../../components/navigation/TabPanel';
 
 
+
 // import hehe from '../../../public/hehe';
 const _pages = [ 'Jobs', 'Profile','Interview rehearsal'];
 const _tabs = [
-  { label: "Personnal Details", content: "/personaldetails" },
+  { label: "Personal Details", content: "TalentPersonalDetails" },
   { label: "Background", content: "/background" },
   { label: "IT Skills", content: "/itskills" },
   { label: "Preferences", content: "/preferences" },
 ];
+const _tabpanels = ["TalentPersonalDetails","TalentBackground","TalentITSkills","TalentPreferences"]
 const TalentProfile = () => {
   const [avatarUrl, setAvatarUrl] = useState(null);
 
@@ -51,7 +53,7 @@ const TalentProfile = () => {
           />
         </Grid>
         <Grid item xs={12} sx={{margin:"0px 40px"}}>
-          <VerticalTabs tabs={_tabs}/>
+          <VerticalTabs tabs={_tabs} panels={_tabpanels}/>
         </Grid>
       </Grid>
     </div>

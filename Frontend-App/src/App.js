@@ -11,6 +11,7 @@ import Talents from "./pages/company/Talents";
 import PrivateRoute from "./components/PrivateRoute";
 import TalentProfile from "./pages/talent/TalentProfile";
 
+
 function App() {
   return (
     <Routes>

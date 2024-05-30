@@ -1,18 +1,18 @@
-// material-ui
-import { Typography } from '@mui/material';
-
-// project imports
-import MenuGroup from './MenuGroup';
+import { useNavigate} from 'react-router-dom';
 import profileMenuItem from './menu-items';
-import MenuItem from './MenuItem';
-
-// ==============================|| SIDEBAR MENU LIST ||============================== //
+import MenuGroup from './MenuGroup';
 
 const MenuList = () => {
+  const navigate = useNavigate();
+
+  const handleMenuItemClick = (item) => {
+    navigate(item.url);
+  };
+
   const menuItems = profileMenuItem.items.map((item) => {
     switch (item.type) {
       case 'group':
-        return <MenuGroup key={item.id} item={item} />;
+        return <MenuGroup key={item.id} item={item} onClick={handleMenuItemClick} history={history} />;
       default:
         return (
           <Typography key={item.id} variant="h6" color="error" align="center">

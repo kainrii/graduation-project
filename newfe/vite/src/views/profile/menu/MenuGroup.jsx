@@ -11,23 +11,23 @@ import MenuItem from './MenuItem';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
-const MenuGroup = ({ item }) => {
+const MenuGroup = ({ item, onClick }) => {
   const theme = useTheme();
 
   // menu list collapse & items
   const items = item.children?.map((menu) => {
-    return <MenuItem key={menu.id} item={menu} level={1} />;
+    return <MenuItem key={menu.id} item={menu} level={1} onClick={onClick}  />;
   });
 
-  return (
+return (
     <>
       <List
         subheader={
           item.title && (
-            <Typography variant="caption" sx={{ ...theme.typography.menuCaption }} display="block" gutterBottom>
+            <Typography variant="caption" sx={{...theme.typography.menuCaption }} display="block" gutterBottom>
               {item.title}
               {item.caption && (
-                <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+                <Typography variant="caption" sx={{...theme.typography.subMenuCaption }} display="block" gutterBottom>
                   {item.caption}
                 </Typography>
               )}
@@ -45,7 +45,8 @@ const MenuGroup = ({ item }) => {
 };
 
 MenuGroup.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object.isRequired,
+  onClick: PropTypes.func // Added prop type for onClick callback
 };
 
 export default MenuGroup;

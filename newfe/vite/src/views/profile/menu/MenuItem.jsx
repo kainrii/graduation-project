@@ -21,7 +21,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
-const MenuItem = ({ item, level }) => {
+const MenuItem = ({ item, level, onClick }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -56,6 +56,7 @@ const MenuItem = ({ item, level }) => {
   const itemHandler = (id) => {
     dispatch({ type: MENU_OPEN, id });
     if (matchesSM) dispatch({ type: SET_MENU, opened: false });
+    if (onClick) onClick(item);
   };
 
   // active menu item on page load
@@ -114,8 +115,9 @@ const MenuItem = ({ item, level }) => {
 };
 
 MenuItem.propTypes = {
-  item: PropTypes.object,
-  level: PropTypes.number
+  item: PropTypes.object.isRequired,
+  level: PropTypes.number,
+  onClick: PropTypes.func // Added prop type for onClick callback
 };
 
 export default MenuItem;

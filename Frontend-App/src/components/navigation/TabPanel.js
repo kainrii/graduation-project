@@ -18,7 +18,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 , backgroundColor:"cccccc"}}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-export default function VerticalTabs({ tabs }) {
+export default function VerticalTabs({ tabs , panels}) {
     const [value, setValue] = React.useState(0);
   
     const handleChange = (event, newValue) => {
@@ -55,7 +55,7 @@ export default function VerticalTabs({ tabs }) {
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs"
-          sx={{ borderRight: 1, borderColor: 'divider' }}
+          sx={{ borderRight: 1, borderColor: 'divider' , padding:"0px 16px"}}
         >
           {tabs.map((tab, index) => (
             <Tab label={tab.label} {...a11yProps(index)} key={index} sx={{margin:"8px 16px", backgroundColor:"#dddddd", padding:"0px 32px"}} />
@@ -63,7 +63,8 @@ export default function VerticalTabs({ tabs }) {
         </Tabs>
         {tabs.map((tab, index) => (
           <TabPanel value={value} index={index} key={index}>
-            {tab.content}
+            {React.createElement(panels[value])}
+            
           </TabPanel>
         ))}
       </Box>
