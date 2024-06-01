@@ -1,37 +1,35 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-// material-ui
-import Grid from '@mui/material/Grid';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import {Grid} from '@mui/material';
+
 import { gridSpacing } from 'store/constant';
+import EmploymentView from './EmploymentView';
+import EducationView from './EducationView';
 
 
-const Companies = () => {
-    const [isLoading, setLoading] = useState(true);  
-    const [Companys, setCompanys] = useState([]);
-    const [error, setError] = useState(null); // State to handle any error
-    
-    useEffect(() => {
-      setLoading(false);
-    }, []);
 
+const Background = ({isLoading}) => {
 
-    return (
-    <Grid container spacing={gridSpacing}>
-      <Grid item xs={12}>
+  return (
+    <>
+      {isLoading ?(<></>): (
         <Grid container spacing={gridSpacing}>
-          <Grid item xs={12} md={4}>
-
-          </Grid>
-          <Grid item xs={12} md={4}>
-          </Grid>      
-          <Grid item xs={12} md={4}>
-
-          </Grid>
+        <Grid item xs={12}>
+          <EmploymentView />
         </Grid>
-      </Grid>
-    </Grid>
+        <Grid item xs = {12}>
+          <EducationView />
+        </Grid>
+        </Grid>
+        
+      )}
+    </>
   );
-}
+};
 
-export default Companies
+Background.propTypes = {
+  isLoading: PropTypes.bool
+};
+
+export default Background;

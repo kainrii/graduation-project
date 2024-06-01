@@ -1,27 +1,91 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import * as React from 'react';
+import { useState } from 'react';
+
+//material UI
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { gridSpacing } from 'store/constant';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { Divider } from '@mui/material';
+
+//project import
 import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
-import MenuList from './menu';
+import PersonalDetails from './PersonalDetails';
+import ITSkills from './ITSkills';
+import Background from './Background';
+import Preferences from './Preferences';
 
-const Profile = () => {
-    const [isLoading, setLoading] = useState(true);
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark'? '#1A1D23' : '#fff',
+ ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
-    useEffect(() => {
-        setLoading(false);
-    }, []);
+const tabs = [
+  { id: 1, label: 'Personal Details' },
+  { id: 2, label: 'Background' },
+  { id: 3, label: 'IT skills' },
+  { id: 4, label: 'Preferences' },
+];
 
-    return (
-        <MainCard title="Your Profile" secondary={<SecondaryAction link="" />}>
-          <Grid container spacing={2}>
-            <Grid item xs={3}>
-              <MenuList />
-            </Grid>
-          </Grid>
-        </MainCard>
-    );
+
+const YourProfile = () => {
+  const [selectedTab, setSelectedTab] = useState(tabs[0].label);
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+  };
+
+  return (
+    <MainCard title="Your Profile" secondary={<SecondaryAction link="" />}>
+      <Grid container spacing={2}>
+        <Grid item xs={3}>
+        <List>
+            {tabs.map((tab) => (
+              <ListItem key={tab.id} disablePadding>
+                <ListItemButton 
+                  onClick={() => handleTabChange(tab.label)} 
+                  sx={{
+                    margin: "0px 16px 8px",
+                    borderRadius: "8px",
+                    backgroundColor: selectedTab === tab.label? "secondary.light" : "#fff"
+                  }} 
+                >
+                  <ListItemText primary={tab.label} sx={{textEmphasisColor: selectedTab === tab.label? "secondary.dark" : "#fff"}}/>
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
+        <Divider orientation="vertical" flexItem />
+        <Grid item xs={0.5}></Grid>
+        <Grid item xs={8} sx={{paddingLeft: 10}}>
+          <Item sx={{textAlign:"left"}}>
+            {selectedTab === 'Personal Details' && (
+              <PersonalDetails isLoading={isLoading} />
+            )}
+            {selectedTab === 'Background' && (
+              <Background/>
+            )}
+            {selectedTab === 'IT skills' && (
+              <ITSkills/>
+            )}
+            {selectedTab === 'Preferences' && (
+              <Preferences isLoading={isLoading}/>
+              // <div> jhdsbvjhv</div>
+            )}
+          </Item>
+        </Grid>
+      </Grid>
+    </MainCard>
+  );
 };
 
-export default Profile;
+export default YourProfile;
