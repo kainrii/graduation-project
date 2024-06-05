@@ -1,40 +1,37 @@
 import React, { useState } from 'react';
-// material UI
-import { Grid, TextField, Select, MenuItem, Menu, Button, IconButton, InputAdornment } from '@mui/material';
+import axios from 'axios';
+import {
+  Grid,
+  TextField,
+  Select,
+  MenuItem,
+  Menu,
+  Button,
+  IconButton,
+  InputAdornment,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from '@mui/material';
 import { DatePicker } from '@mui/lab';
-
-//assets
 import TodayIcon from '@mui/icons-material/Today';
-
-//project import
-
 import Gender from './personaldetail-items/gender';
 import NATIONALITIES from './personaldetail-items/nationality';
 
-const PersonalDetailEdit = () => {
-  const [info, setInfo] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    dob: null,
-    gender: '',
-    phoneNumber: '',
-    nationality: '',
-    countryOfResidence: '',
-    social: '',
-  });
-
+const PersonalDetailEdit = ({ info: initialInfo, onCancel, onSubmit }) => {
+  const url = 'https://localhost:7049/api/TalentProfiles/personal-details/665ed90b132bbd277663f6c4';
   const [anchorEl, setAnchorEl] = useState(null);
+  const [formInfo, setFormInfo] = useState({ ...initialInfo });
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (name) => (event) => {
-    setInfo({ ...info, [name]: event.target.value });
+    setFormInfo({ ...formInfo, [name]: event.target.value });
   };
 
   const handleDateChange = (date) => {
-    setInfo({
-      ...info,
-      dob: date,
-    });
+    setFormInfo({ ...formInfo, dob: date });
   };
 
   const handleClick = (event) => {
@@ -46,12 +43,32 @@ const PersonalDetailEdit = () => {
   };
 
   const handleNationalityChange = (nationality) => {
-    setInfo({ ...info, nationality });
+    setFormInfo({ ...formInfo, nationality });
     handleClose();
   };
 
-  const handleSubmit = () => {
-    console.log(info);
+  const handleFormSubmit = () => {
+    setConfirmationOpen(true);
+  };
+
+  const handleSubmitConfirmation = () => {
+    setIsSubmitting(true);
+    axios
+      .put(url, formInfo)
+      .then((response) => {
+        console.log(response.data);
+        setIsSubmitting(false);
+        onSubmit(formInfo);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsSubmitting(false);
+      });
+    setConfirmationOpen(false);
+  };
+
+  const handleCancel = () => {
+    onCancel();
   };
 
   return (
@@ -61,8 +78,8 @@ const PersonalDetailEdit = () => {
           fullWidth
           label="First Name"
           name="firstName"
-          value={info.firstName}
-          onChange={handleChange}
+          value={formInfo.firstName}
+          onChange={handleChange('firstName')}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -70,8 +87,8 @@ const PersonalDetailEdit = () => {
           fullWidth
           label="Last Name"
           name="lastName"
-          value={info.lastName}
-          onChange={handleChange}
+          value={formInfo.lastName}
+          onChange={handleChange('lastName')}
         />
       </Grid>
       <Grid item xs={6}>
@@ -79,15 +96,15 @@ const PersonalDetailEdit = () => {
           fullWidth
           label="Email"
           name="email"
-          value={info.email}
-          onChange={handleChange}
+          value={formInfo.email}
+          onChange={handleChange('email')}
         />
       </Grid>
       <Grid item xs={3}>
         <DatePicker
           label="Date of Birth"
           inputFormat="dd/MM/yyyy"
-          value={info.dob}
+          value={formInfo.dob}
           onChange={handleDateChange}
           renderInput={(params) => (
             <TextField
@@ -107,7 +124,7 @@ const PersonalDetailEdit = () => {
           showTimeSelect
           timeFormat="HH:mm"
           timeIntervals={15}
-          filterDate={(date) => date >= new Date()} // disable dates before today
+          filterDate={(date) => date >= new Date()}
         />
       </Grid>
       <Grid item xs={3}>
@@ -115,8 +132,8 @@ const PersonalDetailEdit = () => {
           fullWidth
           label="Gender"
           name="gender"
-          value={info.gender}
-          onChange={handleChange}
+          value={formInfo.gender}
+          onChange={handleChange('gender')}
         >
           <MenuItem value={Gender.MALE}>{Gender.MALE}</MenuItem>
           <MenuItem value={Gender.FEMALE}>{Gender.FEMALE}</MenuItem>
@@ -127,55 +144,64 @@ const PersonalDetailEdit = () => {
         <TextField
           fullWidth
           label="Phone Number"
-          name="phoneNumber"
-          value={info.phoneNumber}
-          onChange={handleChange}
+          name="phone"
+          value={formInfo.phone}
+          onChange={handleChange('phone')}
         />
       </Grid>
       <Grid item xs={4}>
-          <TextField
-            fullWidth
-            label="Nationality"
-            value={info.nationality}
-            onClick={handleClick}
-          />
-          <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {Object.values(NATIONALITIES).map(({ index, name }) => (
-              <MenuItem key={index} onClick={() => handleNationalityChange(name)}>
-                {name}
-              </MenuItem>
-            ))}
-          </Menu>
-
+        <TextField
+          fullWidth
+          label="Nationality"
+          value={formInfo.nationality}
+          onClick={handleClick}
+        />
+        <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+          {Object.values(NATIONALITIES).map(({ index, name }) => (
+            <MenuItem key={index} onClick={() => handleNationalityChange(name)}>
+              {name}
+            </MenuItem>
+          ))}
+        </Menu>
       </Grid>
       <Grid item xs={4}>
         <TextField
           fullWidth
           label="Country of Residence"
-          name="countryOfResidence"
-          value={info.countryOfResidence}
-          onChange={handleChange}
+          name="address"
+          value={formInfo.address}
+          onChange={handleChange('address')}
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
           fullWidth
-          label="Social"
-          name="social"
-          value={info.social}
-          onChange={handleChange}
+          label="Social Networks"
+          name="socialNetworks"
+          value={formInfo.socialNetworks}
+          onChange={handleChange('socialNetworks')}
         />
       </Grid>
       <Grid item xs={12}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button variant="contained" color="primary" onClick={handleFormSubmit}>
           Submit
         </Button>
+        <Button variant="outlined" color="secondary" sx={{marginLeft:4}} onClick={handleCancel}>
+          Cancel
+        </Button>
       </Grid>
+      <Dialog open={confirmationOpen} onClose={() => setConfirmationOpen(false)}>
+        <DialogTitle>Confirm Submission</DialogTitle>
+        <DialogContent>Are you sure you want to submit?</DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmationOpen(false)} color="primary">
+            No
+          </Button>
+          <Button onClick={handleSubmitConfirmation} color="primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Yes'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 };

@@ -11,12 +11,13 @@ import Gender from './personaldetail-items/gender';
 import NATIONALITIES from './personaldetail-items/nationality';
 
 const PersonalDetailView = ({ info }) => {
+  console.log(info);
   return (
     <Grid container spacing={2} direction="row">
       <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
-          label="First Name"
+          // label="First Name"
           value={info.firstName}
           disabled
         />
@@ -24,7 +25,7 @@ const PersonalDetailView = ({ info }) => {
       <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
-          label="Last Name"
+          // label="Last Name"
           value={info.lastName}
           disabled
         />
@@ -32,7 +33,7 @@ const PersonalDetailView = ({ info }) => {
       <Grid item xs={6}>
         <TextField
           fullWidth
-          label="Email"
+          // label="Email"
           value={info.email}
           disabled
         />
@@ -63,7 +64,7 @@ const PersonalDetailView = ({ info }) => {
       <Grid item xs={3}>
         <TextField
           fullWidth
-          label="Gender"
+          // label="Gender"
           value={info.gender}
           disabled
         >
@@ -72,15 +73,15 @@ const PersonalDetailView = ({ info }) => {
       <Grid item xs={4}>
         <TextField
           fullWidth
-          label="Phone Number"
-          value={info.phoneNumber}
+          // label="Phone Number"
+          value={info.phone}
           disabled
         />
       </Grid>
       <Grid item xs={4}>
         <TextField
           fullWidth
-          label="Nationality"
+          // label="Nationality"
           value={info.nationality}
           disabled
         />
@@ -88,16 +89,16 @@ const PersonalDetailView = ({ info }) => {
       <Grid item xs={4}>
         <TextField
           fullWidth
-          label="Country of Residence"
-          value={info.countryOfResidence}
+          // label="Address"
+          value={info.address}
           disabled
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
           fullWidth
-          label="Social"
-          value={info.social}
+          // label="socialNetworks"
+          value={info.socialNetworks}
           disabled
         />
       </Grid>

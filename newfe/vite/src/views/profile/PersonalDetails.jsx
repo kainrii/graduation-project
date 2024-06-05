@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 // material UI
 import { Button, Box, Typography, Avatar, Grid, TextField, Select, MenuItem, IconButton} from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -20,22 +21,12 @@ const Input = styled('input')({
   display: 'none',
 });
 
-const PersonalDetails = ({isLoading}) => {
+const PersonalDetails = ({ isLoading, info }) => {
   const [avatar, setAvatar] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
-  const info={
-    firstName: '',
-    lastName: '',
-    email: '',
-    dob: null,
-    gender: '',
-    phoneNumber: '',
-    nationality: '',
-    countryOfResidence: '',
-    social: ''
-  };
-
-
+  const [initialInfo, setInfo] = useState(info);
+  const [tempInfo, setTempInfo] = useState(null); // Store temporary info for confirmation
+  
   const defaultAvatarSrc = 'src/assets/images/users/user-round.svg';
   
   const theme = useTheme();
@@ -45,7 +36,17 @@ const PersonalDetails = ({isLoading}) => {
   };
 
   const handleEditClick = () => {
-    setIsEditMode(!isEditMode);
+    setIsEditMode(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditMode(false);
+  };
+
+  const handleFormSubmit = (updatedData) => {
+    // Update the data in the parent component's state
+    setIsEditMode(false);
+    setInfo(updatedData);
   };
 
   return (
@@ -54,6 +55,7 @@ const PersonalDetails = ({isLoading}) => {
         <></>
       ) : (
         <Grid container spacing={gridSpacing}>
+          {/* Avatar section */}
           <Grid item xs={6} sm={3}>
             <Box sx={{width: 128, height: 128}}>
               {avatar ? (
@@ -71,6 +73,7 @@ const PersonalDetails = ({isLoading}) => {
               )}
             </Box>
           </Grid>
+          {/* Upload Avatar section */}
           <Grid item xs={18} sm={9}>
             <Box sx={{ mt: 4 }}>
               <Input
@@ -91,19 +94,27 @@ const PersonalDetails = ({isLoading}) => {
               image limit size: 125kB
             </Box>
           </Grid >
-            <Grid item xs={12}>
-              <Typography align="right">
-                <IconButton onClick={handleEditClick}>
-                  <ModeOutlinedIcon />
-                </IconButton>
-              </Typography>
-            </Grid>
-
-            {isEditMode ? (
-              <PersonalDetailEdit info={info} onCancel={() => setIsEditMode(false)} />
-            ) : 
-            (<PersonalDetailView info={info}/>)
-            }
+          {/* Edit button */}
+          <Grid item xs={12}>
+            <Typography align="right">
+              <IconButton onClick={handleEditClick}>
+                <ModeOutlinedIcon />
+              </IconButton>
+            </Typography>
+          </Grid>
+          {/* Render edit mode or view mode based on isEditMode state */}
+          {isEditMode ? (
+          <PersonalDetailEdit
+            info={initialInfo}
+            onCancel={handleCancel}
+            onSubmit={handleFormSubmit}
+          />
+        ) : (
+          <PersonalDetailView
+            info={initialInfo}
+            onEditClick={handleEditClick}
+          />
+        )}
         </Grid>
       )}
     </>
@@ -111,7 +122,8 @@ const PersonalDetails = ({isLoading}) => {
 };
 
 PersonalDetails.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  info: PropTypes.object.isRequired,
 };
 
 export default PersonalDetails;
