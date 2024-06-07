@@ -20,6 +20,7 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("M
 builder.Services.AddTransient<ICompanyServices,CompanyServices>();
 builder.Services.AddTransient<ITalentServices, TalentServices>();
 builder.Services.AddTransient<IJobServices, JobServices>();
+builder.Services.AddTransient<ITalentProfileServices, TalentProfileServices>();
 
 builder.Services.AddSingleton<DatabaseContext>();
 builder.Services.AddTransient<ILoginServices, LoginServices>();

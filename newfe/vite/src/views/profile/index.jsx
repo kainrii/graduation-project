@@ -39,59 +39,17 @@ const tabs = [
 const YourProfile = () => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].label);
   const [isLoading, setIsLoading] = useState(false);
-  const [personalDetails, setPersonalDetails] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    dob: null,
-    gender: '',
-    phone: '',
-    nationality: '',
-    address: '',
-    socialNetworks: [
-      {
-        name: 'github',
-        link: 'hhsdbkh'
-      }
-    ]
-  });
-  const profileid = '665ed90b132bbd277663f6c4';
+  const profileid = '666198873807df84823caadf';
   const url = `https://localhost:7049/api/TalentProfiles/${profileid}`;
 
-
-  useEffect(() => {
-    axios.get(url)
-      .then(response => {
-        const profile = response.data;
-        
-        setPersonalDetails({
-          firstName: profile.personalDetails.firstName,
-          lastName: profile.personalDetails.lastName,
-          email: profile.personalDetails.email,
-          dob: profile.personalDetails.dob,
-          gender: profile.personalDetails.gender,
-          phone: profile.personalDetails.phone,
-          nationality: profile.personalDetails.nationality,
-          address: profile.personalDetails.address,
-          socialNetworks:  [
-            {
-              name: 'github',
-              link: 'hhsdbkh'
-            }
-          ]
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
   };
 
+  // console.log(personalDetails);
   return (
-    <MainCard title="Your Profile" secondary={<SecondaryAction link="" />}>
+    <MainCard title="Your Profile">
       <Grid container spacing={2}>
         <Grid item xs={3}>
         <List>
@@ -116,13 +74,13 @@ const YourProfile = () => {
         <Grid item xs={8} sx={{paddingLeft: 10}}>
           <Item sx={{textAlign:"left"}}>
             {selectedTab === 'Personal Details' && (
-              <PersonalDetails isLoading={isLoading} info={personalDetails} />
+              <PersonalDetails isLoading={isLoading} id={profileid} />
             )}
             {selectedTab === 'Background' && (
               <Background/>
             )}
             {selectedTab === 'IT skills' && (
-              <ITSkills/>
+              <ITSkills isLoading={isLoading} id={profileid} />
             )}
             {selectedTab === 'Preferences' && (
               <Preferences isLoading={isLoading}/>

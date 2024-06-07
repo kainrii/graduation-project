@@ -178,7 +178,7 @@ const PersonalDetailEdit = ({ info: initialInfo, onCancel, onSubmit }) => {
           fullWidth
           label="Social Networks"
           name="socialNetworks"
-          value={formInfo.socialNetworks}
+          value={formInfo.socialNetworks[0].link}
           onChange={handleChange('socialNetworks')}
         />
       </Grid>

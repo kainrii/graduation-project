@@ -8,16 +8,17 @@ import { element } from 'prop-types';
 const Jobs = Loadable(lazy(()=> import('views/jobs')));
 
 // companies routing
-
 const Companies = Loadable(lazy(()=> import('views/companies')));
 
 //profile routing
-
 const Profile = Loadable(lazy(() => import('views/profile')));
 const PersonalDetails = Loadable(lazy(() => import('views/profile')));
 const Background = Loadable(lazy(() => import('views/profile')));
 const ITSkills = Loadable(lazy(() => import('views/profile')));
 const Preferences = Loadable(lazy(() => import('views/profile')));
+
+//interview routing
+const Interview = Loadable(lazy (()=>import('views/interview')));
 
 
 
@@ -73,8 +74,19 @@ const MainRoutes = {
           element: <Companies/>
         }
       ]
+    },
+    
+    {
+      path: 'interview',
+      children:[
+        {
+          path: 'dashboard',
+          element: <Interview/>
+        },
+      ]
     }
   ]
+
 };
 
 export default MainRoutes;

@@ -21,12 +21,55 @@ const Input = styled('input')({
   display: 'none',
 });
 
-const PersonalDetails = ({ isLoading, info }) => {
+const PersonalDetails = ({ isLoading, id }) => {
+  const url = `https://localhost:7049/api/TalentProfiles/personal-details/${id}`
+
   const [avatar, setAvatar] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [initialInfo, setInfo] = useState(info);
+  const [initialInfo, setInfo] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      dob: null,
+      gender: '',
+      phone: '',
+      nationality: '',
+      address: '',
+      socialNetworks: [
+        {
+          name: 'github',
+          link: 'hhsdbkh'
+        }
+      ]
+    });
   const [tempInfo, setTempInfo] = useState(null); // Store temporary info for confirmation
-  
+
+  useEffect(() => {
+    axios.get(url)
+      .then(response => {
+        const profile = response.data;
+        console.log (profile);
+        
+        setInfo(prevState => ({  // Use the updater function form
+          ...prevState,  // Spread the previous state
+          firstName: profile.personalDetails.firstName,
+          lastName: profile.personalDetails.lastName,
+          email: profile.personalDetails.email,
+          dob: profile.personalDetails.dob,
+          gender: profile.personalDetails.gender,
+          phone: profile.personalDetails.phone,
+          nationality: profile.personalDetails.nationality,
+          address: profile.personalDetails.address,
+          socialNetworks:  profile.personalDetails.socialNetworks
+        }));
+        
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }, []);
+
+
   const defaultAvatarSrc = 'src/assets/images/users/user-round.svg';
   
   const theme = useTheme();

@@ -1,5 +1,4 @@
-const itskill = {
-    programmingLanguage: [
+const itskill = [
       "JavaScript",
       "Python",
       "Java",
@@ -9,9 +8,7 @@ const itskill = {
       "Go",
       "Rust",
       "PHP",
-      "Perl"
-    ],
-    Framework: [
+      "Perl",
       "React",
       "Angular",
       "Vue.js",
@@ -21,9 +18,7 @@ const itskill = {
       "Ruby on Rails",
       "Laravel",
       "Spring",
-      "Hibernate"
-    ],
-    db: [
+      "Hibernate",
       "MySQL",
       "PostgreSQL",
       "MongoDB",
@@ -33,9 +28,7 @@ const itskill = {
       "Firebase",
       "Cassandra",
       "Redis",
-      "GraphQL"
-    ],
-    platform: [
+      "GraphQL",
       "Azure",
       "Docker",
       "Kubernetes",
@@ -46,7 +39,7 @@ const itskill = {
       "Cloud Foundry",
       "Pivotal Cloud Foundry",
       "IBM Cloud"
-    ]
-  };
+
+];
 
   export default itskill

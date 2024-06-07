@@ -98,7 +98,7 @@ const PersonalDetailView = ({ info }) => {
         <TextField
           fullWidth
           // label="socialNetworks"
-          value={info.socialNetworks}
+          value={info.socialNetworks[0].link}
           disabled
         />
       </Grid>

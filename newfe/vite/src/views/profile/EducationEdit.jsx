@@ -1,11 +1,11 @@
-import React, { useState } from 'eact';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Grid, TextField, Button } from '@mui/material';
 
-import { gridSpacing } from 'tore/constant';
+import { gridSpacing } from 'store/constant';
 import EmploymentView from './EmploymentView';
-import EducationView from './EducationView';
+import EducationView from './Education';
 
 const EducationEdit = ({ isLoading, onSave }) => {
   const [education, setEducation] = useState('');

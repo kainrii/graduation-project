@@ -11,10 +11,10 @@ const interview = {
   type: 'group',
   children: [
     {
-      id: 'interview-dashboard',
+      id: 'dashboard',
       title: 'Interview',
       type: 'item',
-      url: '/interview-dashboard',
+      url: 'interview/dashboard',
       icon: icons.IconBrandChrome,
       breadcrumbs: false
     }
