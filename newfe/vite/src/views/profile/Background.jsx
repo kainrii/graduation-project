@@ -4,48 +4,31 @@ import PropTypes from 'prop-types';
 
 import { Grid } from '@mui/material';
 
+import { fetchProfile } from 'api/profile';
 import { gridSpacing } from 'store/constant';
 import EmploymentView from './EmploymentView';
 import Education from './Education';
 
 const Background = ({ isLoading, id }) => {
-  const url = `https://localhost:7049/api/TalentProfiles/${id}`;
   const [background, setBackground] = useState({
-    educations: [
-      {
-        start: null,
-        end: null,
-        placeofEducation: "",
-        degree: "",
-        description: ""
-      }
-    ],
-    employments: [
-      {
-        start: null,
-        end: null,
-        placeofEmployment: "",
-        position: "",
-        description: ""
-      }
-    ]
+    educations: [],
+    employments: []
   });
 
   useEffect(() => {
-    axios.get(url)
-      .then(response => {
-        const profile = response.data;
-        console.log(profile);
-        setBackground(prevState => ({  
-          ...prevState,  
+    const fetchData = async () => {
+      try {
+        const profile = await fetchProfile(id);
+        setBackground({
           educations: profile.educations || [],
           employments: profile.employments || []
-        }));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, [url]); // Added url as dependency for useEffect
+        });
+      } catch (error) {
+        console.error('Error fetching background:', error);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   return (
     <>

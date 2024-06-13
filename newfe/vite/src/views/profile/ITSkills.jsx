@@ -5,34 +5,27 @@ import { Grid, Typography, IconButton, List, ListItem, ListItemText, Button, Dia
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined';
 import SubCard from 'ui-component/cards/SubCard';
 import itskill from './itskills-items/itskills';
+import { fetchProfile, updateITSkills } from 'api/profile';
 
 const ITSkills = ({ isLoading, id }) => {
-  const url = `https://localhost:7049/api/TalentProfiles/${id}`;
-  const puturl = `https://localhost:7049/api/TalentProfiles/it-skills/${id}`
   const [editIndex, setEditIndex] = useState(null);
   const [itskills, setITSkills] = useState({});
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [projectDescription, setProjectDescription] = useState('');
   const [projectSkills, setProjectSkills] = useState([]);
   const [projectLink, setProjectLink] = useState('');
-  const [requestData, setRequestData] = useState({
-    projects: [{
-      skills: [],
-      projectName: '',
-      projectDescription: '',
-      projectLink: ''
-    }]
-  });
+
   useEffect(() => {
-    axios.get(url)
-      .then(response => {
-        const profile = response.data;
+    const fetchData = async () => {
+      try {
+        const profile = await fetchProfile(id);
         setITSkills(profile.itSkills);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   const handleEditClick = (index) => {
     setEditIndex(index);
@@ -46,7 +39,7 @@ const ITSkills = ({ isLoading, id }) => {
     setOpenEditDialog(false);
   };
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = async () => {
     // Construct the modified project object
     const modifiedProject = {
       skills: projectSkills,
@@ -65,24 +58,16 @@ const ITSkills = ({ isLoading, id }) => {
     setOpenEditDialog(false);
   
     // Log the request data
+    console.log('PUT request data:', requestData);
     
     // Send PUT request to update the project data
-    const requestData = {
-      projects: updatedProjects
-    };
-    
-    axios.put(puturl, requestData)
-    .then(response => {
-      console.log('PUT request successful:', response.data);
-    })
-    .catch(error => {
+    try {
+      await updateITSkills(id, { projects: updatedProjects });
+    } catch (error) {
       console.error('Error sending PUT request:', error);
-    });
-    console.log('PUT request data:', requestData);
+    }
   };
   
-  
-
   return (
     <>
       {isLoading ? (
